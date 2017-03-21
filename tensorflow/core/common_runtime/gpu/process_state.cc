@@ -160,7 +160,7 @@ Allocator* ProcessState::GetCPUAllocator(int numa_node) {
   mutex_lock lock(mu_);
   while (cpu_allocators_.size() <= static_cast<size_t>(numa_node)) {
     Allocator* allocator =
-        new PoolAllocator(100 /*pool_size_limit*/, true /*auto_resize*/,
+        new PoolAllocator(10000 /*pool_size_limit*/, false /*auto_resize*/,
                           new BasicCPUAllocator(), new NoopRounder, "cpu_pool");
     if (LogMemory::IsEnabled()) {
       // Wrap the allocator to track allocation ids for better logging
